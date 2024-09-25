@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX CALLING EXAMPLE</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .button {
+            background-color: aqua;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <input type="submit" class="button" id="special" value="SUBMIT">
+    <div id="add"></div>
+    <script>
+        let dr = document.getElementById("special");
+        let demo = document.getElementById("add");
+        dr.addEventListener('click', addtxt);
+
+        function addtxt() {
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'ajax.txt', true);
+            console.log("AJAX request initialized."); // Debugging line
+            alert("hii");
+
+            xhr.onprogress = function() {
+                demo.innerText = "Loading...";
+                console.log("Request in progress."); // Debugging line
+            };
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    demo.innerText = xhr.responseText;
+                    console.log("Request successful."); // Debugging line
+                } else {
+                    demo.innerText = "Failed to load content.";
+                    console.log("Request failed with status:", xhr.status); // Debugging line
+                }
+            };
+
+            xhr.onerror = function() {
+                demo.innerText = "Error while making request.";
+                console.log("Request error."); // Debugging line
+            };
+
+            xhr.send();
+            console.log("Request sent."); // Debugging line
+        }
+    </script>
+</body>
+</html>
